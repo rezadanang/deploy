@@ -61,7 +61,7 @@ import nltk
 nltk.download('stopwords')
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sastrawi.stemmer import StemmerFactory
+# from sastrawi.stemmer import StemmerFactory
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from google_play_scraper import Sort, reviews_all
@@ -109,9 +109,9 @@ def predict_sentiment(text, model):
     # text_vec = vectorizer.fit_transform([text])
 
      # Melakukan stemming menggunakan Sastrawi
-    factory = StemmerFactory()
-    stemmer = factory.create_stemmer()
-    text = stemmer.stem(text)
+    # factory = StemmerFactory()
+    # stemmer = factory.create_stemmer()
+    # text = stemmer.stem(text)
 
     # Mengubah teks menjadi vektor TF-IDF
     vectorizer = TfidfVectorizer(stop_words='indonesian')
