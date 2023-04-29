@@ -13,6 +13,7 @@ import joblib
 import nltk
 from nltk.tokenize import word_tokenize 
 from nltk.tokenize import RegexpTokenizer
+from nltk.corpus import stopwords
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('wordnet')
@@ -70,6 +71,10 @@ def scrape_google_play(country, start_date, end_date):
     df['content'] = df['content'].str.replace("\s(2)", ' ', case=False)
     regexp = RegexpTokenizer('\w+')
     df['content_token']=df['content'].apply(regexp.tokenize)
+    #
+    stopwords = nltk.corpus.stopwords.words("indonesian")
+    # Remove stopwords
+    df['content_token'] = df['content_token'].apply(lambda x: [item for item in x if item not in stopwords])
     st.dataframe(df) 
     # return df
 
