@@ -11,7 +11,11 @@ import numpy as np
 import re
 import joblib
 import nltk
-from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize 
+from nltk.tokenize import RegexpTokenizer
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('wordnet')
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.ensemble import RandomForestClassifier
@@ -56,6 +60,16 @@ def scrape_google_play(country, start_date, end_date):
         else:
             sentimen.append(-1)
     df['sentiment'] = sentimen
+
+    df['content'] = df['content'].str.replace('https\S+', ' ', case=False)
+    df['content'] = df['content'].str.lower()
+    df['content'] = df['content'].str.replace('@\S+', ' ', case=False)
+    df['content'] = df['content'].str.replace('#\S+', ' ', case=False)
+    df['content'] = df['content'].str.replace("\'\w+", ' ', case=False)
+    df['content'] = df['content'].str.replace("[^\w\s]", ' ', case=False)
+    df['content'] = df['content'].str.replace("\s(2)", ' ', case=False)
+    regexp = RegexpTokenizer('\w+')
+    df['content_token']=df['content'].apply(regexp.tokenize)
     st.dataframe(df) 
     # return df
 
