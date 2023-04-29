@@ -35,7 +35,7 @@ def scrape_google_play(country, start_date, end_date):
     # Mengubah hasil scraping ke dalam dataframe
     df = pd.DataFrame(reviews)
 
-    st.dataframe(df) 
+    
 
     # Mengubah format kolom tanggal menjadi datetime
     df['at'] = pd.to_datetime(df['at']).dt.date
@@ -56,8 +56,8 @@ def scrape_google_play(country, start_date, end_date):
         else:
             sentimen.append(-1)
     df['sentiment'] = sentimen
-
-    return df
+    st.dataframe(df) 
+    # return df
 
 
 def predict_sentiment(text, model):
