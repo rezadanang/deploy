@@ -1,7 +1,9 @@
 google_play_scraper==1.2.4
 joblib==1.2.0
+nltk==3.8.1
 numpy==1.24.3
 pandas==1.5.3
 PySastrawi==1.2.0
+Sastrawi==1.0.1
 scikit_learn==1.2.2
 streamlit==1.21.0
