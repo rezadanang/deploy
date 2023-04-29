@@ -126,10 +126,10 @@ if st.button('Analyze'):
     # df = scrape_google_play(keyword, country, start_date, end_date)
     df = scrape_google_play(country, start_date, end_date)
 # Menambahkan kolom sentimen pada dataframe
-df['sentiment'] = df['content'].apply(lambda x: predict_sentiment(x, model))
+    df['sentiment'] = df['content'].apply(lambda x: predict_sentiment(x, model))
 
-st.write('Hasil Analisis Sentimen:')
-st.write(df['sentiment'].value_counts())
+    st.write('Hasil Analisis Sentimen:')
+    st.write(df['sentiment'].value_counts())
     # Memeriksa apakah ada ulasan dalam
     # df = predict_sentiment(text, model)
     
