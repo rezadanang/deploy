@@ -124,6 +124,14 @@ if st.button('Analyze'):
     # Memanggil fungsi untuk scraping data
     # df = scrape_google_play(keyword, country, start_date, end_date)
     df = scrape_google_play(country, start_date, end_date)
+    df = predict_sentiment(df)
+    
+    st.write("Jumlah Ulasan:", len(df))
+    st.write("Sentimen Positif:", len(df[df['sentimen'] == 'positif']))
+    st.write("Sentimen Netral:", len(df[df['sentimen'] == 'netral']))
+    st.write("Sentimen Negatif:", len(df[df['sentimen'] == 'negatif']))
+    st.write("Hasil Analisis Sentimen:")
+    st.write(df[['ulasan', 'sentimen']])
     # Memeriksa apakah ada ulasan dalam
     # df = predict_sentiment(text, model)
-    st.write(predict_sentiment)
+    
