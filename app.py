@@ -57,6 +57,9 @@ import pandas as pd
 import numpy as np
 import re
 import joblib
+import nltk
+nltk.download('stopwords')
+from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sastrawi.stemmer import StemmerFactory
 from sklearn.ensemble import RandomForestClassifier
