@@ -57,9 +57,7 @@ import pandas as pd
 import numpy as np
 import re
 import joblib
-import nltk
-nltk.download('stopwords')
-from nltk.corpus import stopwords
+from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 from sklearn.feature_extraction.text import TfidfVectorizer
 # from sastrawi.stemmer import StemmerFactory
 from sklearn.ensemble import RandomForestClassifier
@@ -108,14 +106,24 @@ def predict_sentiment(text, model):
     # vectorizer = TfidfVectorizer(stop_words='indonesian')
     # text_vec = vectorizer.fit_transform([text])
 
+    
      # Melakukan stemming menggunakan Sastrawi
     # factory = StemmerFactory()
     # stemmer = factory.create_stemmer()
     # text = stemmer.stem(text)
 
+    # # Mengubah teks menjadi vektor TF-IDF
+    # vectorizer = TfidfVectorizer(stop_words='indonesian')
+    # text_vec = vectorizer.fit_transform([text])
+
     # Mengubah teks menjadi vektor TF-IDF
-    vectorizer = TfidfVectorizer(stop_words='indonesian')
+    vectorizer = TfidfVectorizer(stop_words=None)
     text_vec = vectorizer.fit_transform([text])
+
+    # Melakukan stemming pada teks
+    factory = StemmerFactory()
+    stemmer = factory.create_stemmer()
+    stemmed_text = stemmer.stem(text)
 
     # Melakukan prediksi dengan model random forest
     prediction = model.predict(text_vec)
