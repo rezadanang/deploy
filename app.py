@@ -75,6 +75,10 @@ def scrape_google_play(country, start_date, end_date):
     stopwords = nltk.corpus.stopwords.words("indonesian")
     # Remove stopwords
     df['content_token'] = df['content_token'].apply(lambda x: [item for item in x if item not in stopwords])
+    # create stemmer
+    factory = StemmerFactory()
+    stemmer = factory.create_stemmer()
+    df['stemmed'] = df['content_token'].apply(lambda x: [stemmer.stem(y) for y in x]) # Stem every word.
     st.dataframe(df) 
     # return df
 
