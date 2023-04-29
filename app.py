@@ -10,6 +10,8 @@ import pandas as pd
 import numpy as np
 import re
 import joblib
+import matplotlib.pyplot as plt
+from wordcloud import WordCloud
 import nltk
 from nltk.tokenize import word_tokenize 
 from nltk.tokenize import RegexpTokenizer
@@ -80,6 +82,17 @@ def scrape_google_play(country, start_date, end_date):
     stemmer = factory.create_stemmer()
     df['stemmed'] = df['content_token'].apply(lambda x: [stemmer.stem(y) for y in x]) # Stem every word.
     st.dataframe(df) 
+
+    #wordcloud positif
+    df_p=df[df['sentiment']==1]
+    all_words_lem = ' '.join([word for word in df_p['content']])
+    wordcloud = WordCloud(background_color='white', width=800, height=500, random_state=21, max_font_size=130).generate(all_words_lem)
+
+    plt.figure(figsize=(20, 10))
+    plt.imshow(wordcloud, interpolation='bilinear')
+    plt.axis('off')
+    plt.show()
+    st.pyplot()
     # return df
 
 
