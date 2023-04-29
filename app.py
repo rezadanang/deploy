@@ -120,7 +120,9 @@ start_date = st.date_input('Tanggal Awal')
 end_date = st.date_input('Tanggal Akhir')
 
 if st.button('Analyze'):
+    result = predict_sentiment
     # Memanggil fungsi untuk scraping data
     # df = scrape_google_play(keyword, country, start_date, end_date)
     df = scrape_google_play(country, start_date, end_date)
     # Memeriksa apakah ada ulasan dalam
+    st.write(result)
