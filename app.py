@@ -124,11 +124,7 @@ def predict_sentiment(text, model):
     stemmer = factory.create_stemmer()
     stemmed_text = stemmer.stem(text)
 
-    # Menambahkan kolom yang tidak ada pada vektor fitur untuk membuat dimensinya sama dengan vektor fitur model
-    missing_cols = set(model.feature_names_) - set(vectorizer.get_feature_names())
-    for col in missing_cols:
-        text_vec[0, vectorizer.vocabulary_[col]] = 0
-        
+    
     # Melakukan prediksi dengan model random forest
     prediction = model.predict(text_vec)
 
