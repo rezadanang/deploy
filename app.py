@@ -92,6 +92,7 @@ def scrape_google_play(country, start_date, end_date):
     plt.imshow(wordcloud, interpolation='bilinear')
     plt.axis('off')
     plt.show()
+    st.set_option('deprecation.showPyplotGlobalUse', False)
     st.pyplot()
     # return df
 
