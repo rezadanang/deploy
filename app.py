@@ -131,7 +131,7 @@ def predict_sentiment(text, model):
     return prediction[0]
 
 # Muat model random forest dari file
-model = joblib.load('new-model.pkl')
+model = joblib.load('modell.pkl')
 
 # Tampilan aplikasi Streamlit
 st.title('Analisis Sentimen Ulasan Aplikasi di Playstore')
