@@ -102,7 +102,7 @@ def scrape_google_play(country, start_date, end_date):
     st.pyplot()
 
     #wordcloud negatif
-    df_p=df[df['sentiment']==1]
+    df_p=df[df['sentiment']==-1]
     all_words_lem = ' '.join([word for word in df_p['content']])
     wordcloud = WordCloud(background_color='white', width=800, height=500, random_state=21, max_font_size=130).generate(all_words_lem)
 
@@ -142,6 +142,8 @@ def scrape_google_play(country, start_date, end_date):
 
     random_forest_classifier_prediction =  random_forest_classifier.predict(X_test)
     accuracy_score(random_forest_classifier_prediction,y_test)
+    st.write(accuracy_score)
+    
 def predict_sentiment(text, model):
     # Melakukan preprocessing teks
     text = text.lower()
