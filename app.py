@@ -141,8 +141,8 @@ def scrape_google_play(country, start_date, end_date):
     RandomForestClassifier()
 
     random_forest_classifier_prediction = random_forest_classifier.predict(X_test)
-    accuracy_score = (random_forest_classifier_prediction,y_test)
-    st.write(accuracy_score)
+    result_acc = accuracy_score(random_forest_classifier_prediction,y_test)
+    st.write(result_acc)
 
 def predict_sentiment(text, model):
     # Melakukan preprocessing teks
