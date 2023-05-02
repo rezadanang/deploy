@@ -22,7 +22,7 @@ nltk.download('wordnet')
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, classification_report, confusion_matrix# Performance Metrics  
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, classification_report, confusion_matrix # Performance Metrics  
 from wordcloud import WordCloud,STOPWORDS
 from nltk import SnowballStemmer
 
@@ -134,6 +134,7 @@ def scrape_google_play(country, start_date, end_date):
     smote = SMOTE()
     x_sm,y_sm = smote.fit_resample(X_final,y)
 
+    # Split Data into train & test data train 90%, data tes 10%
     X_train , X_test , y_train , y_test = train_test_split(x_sm , y_sm , test_size=0.1,random_state=3)
 
     random_forest_classifier = RandomForestClassifier()
@@ -142,7 +143,18 @@ def scrape_google_play(country, start_date, end_date):
 
     random_forest_classifier_prediction = random_forest_classifier.predict(X_test)
     result_acc = accuracy_score(random_forest_classifier_prediction,y_test)
+    result_rec = recall_score(random_forest_classifier_prediction, y_test, average='micro')
+    result_prec = precision_score(random_forest_classifier_prediction, y_test, average='micro')
+    result_f1 = f1_score(random_forest_classifier_prediction, y_test, average='micro')
     st.write(result_acc)
+    st.write(result_rec)
+    st.write(result_prec)
+    st.write(result_f1)
+
+
+    # print('Recall: {}'.format(recall_score(random_forest_classifier_prediction, y_test, average='micro')))
+    # print('Precision: {}'.format(precision_score(random_forest_classifier_prediction, y_test, average='micro')))
+    # print('F1-Score: {}'.format(f1_score(random_forest_classifier_prediction, y_test, average='micro')))
 
 def predict_sentiment(text, model):
     # Melakukan preprocessing teks
