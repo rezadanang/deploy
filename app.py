@@ -26,7 +26,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 from wordcloud import WordCloud,STOPWORDS
 from nltk import SnowballStemmer
 
-from sklearn.model_selection import train_test_split # Split Data 
+from sklearn.model_selection import train_test_split, KFold # Split Data 
 from imblearn.over_sampling import SMOTE # Handling Imbalanced
 
 from google_play_scraper import Sort, reviews_all
@@ -150,6 +150,45 @@ def scrape_google_play(country, start_date, end_date):
     st.write(result_rec)
     st.write(result_prec)
     st.write(result_f1)
+
+    # Initialize K-fold cross validation
+    kf = KFold(n_splits=5, shuffle=True, random_state=42)
+
+    # Initialize empty list to store accuracy scores
+    scores = []
+
+    # Loop over each fold
+    for train_idx, test_idx in kf.split(x_sm):
+    # Split data into train and test set
+        X_train, y_train = x_sm[train_idx], y_sm[train_idx]
+        X_test, y_test = x_sm[test_idx], y_sm[test_idx]
+    
+    # Initialize Random Forest classifier
+    rf = RandomForestClassifier(n_estimators=100, random_state=42)
+    
+    # Train the classifier on the training set
+    rf.fit(X_train, y_train)
+    
+    # Make predictions on the test set
+    y_pred = rf.predict(X_test)
+    
+    # Calculate accuracy score
+    accuracy = accuracy_score(y_test, y_pred)
+    
+    # Append accuracy score to list of scores
+    scores.append(accuracy)
+
+    # Calculate mean accuracy score across all folds
+    mean_accuracy = sum(scores) / len(scores)
+
+    print("Mean accuracy:", mean_accuracy)
+
+    plt.plot(scores, 'ro')
+    plt.title('K-fold Cross Validation')
+    plt.xlabel('Fold')
+    plt.ylabel('Accuracy')
+    plt.ylim(0, 1)
+    plt.show()
 
 
     # print('Recall: {}'.format(recall_score(random_forest_classifier_prediction, y_test, average='micro')))
