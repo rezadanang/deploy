@@ -189,7 +189,7 @@ def scrape_google_play(country, start_date, end_date):
     plt.ylabel('Accuracy')
     plt.ylim(0, 1)
     plt.show()
-
+    st.pyplot()
 
     # print('Recall: {}'.format(recall_score(random_forest_classifier_prediction, y_test, average='micro')))
     # print('Precision: {}'.format(precision_score(random_forest_classifier_prediction, y_test, average='micro')))
